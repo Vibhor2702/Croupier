@@ -35,7 +35,7 @@ graph TB
     subgraph "API Layer - FastAPI"
         B[Router Endpoints]
         B1[POST /org/create]
-        B2[GET /org/get/name]
+        B2[GET /org/get]
         B3[PUT /org/update]
         B4[DELETE /org/delete]
         B5[POST /admin/login]
@@ -87,6 +87,26 @@ graph TB
 - **Multi-Tenancy:** Isolated MongoDB collections per organization (`org_<name>`)
 - **Security-First:** JWT authentication with bcrypt password hashing (12 rounds)
 - **Scalability:** Stateless design enabling horizontal scaling
+
+## Design Choices
+
+**Why FastAPI?**
+- High performance comparable to Node.js and Go
+- Automatic OpenAPI/Swagger documentation generation
+- Native async/await support for I/O-bound operations
+- Built-in request/response validation with Pydantic
+
+**Why Collection-per-Tenant Pattern?**
+- Complete data isolation preventing cross-tenant data leakage
+- No tenant_id filtering overhead in queries (better performance)
+- Simplified compliance (delete collection = delete all tenant data)
+- Per-tenant optimization and independent scaling capabilities
+
+**Why JWT Authentication?**
+- Stateless architecture enabling horizontal scaling without session storage
+- Self-contained tokens with admin_id + organization_id for multi-tenant routing
+- No database lookups for token validation (improved performance)
+- Cross-domain authentication support
 
 ## Detailed Architecture Analysis
 
