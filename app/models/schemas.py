@@ -85,6 +85,7 @@ class OrganizationResponse(BaseModel):
     id: str
     organization_name: str
     email: EmailStr
+    connection_details: Optional[str] = Field(None, description="Connection details for organization's dynamic database")
     created_at: datetime
     updated_at: Optional[datetime] = None
     

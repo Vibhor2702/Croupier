@@ -51,9 +51,12 @@ class OrganizationService:
             
         try:
             # 2. Create Organization Metadata
+            # Store connection details for the dynamic collection
+            connection_details = f"Collection: org_{org_data.organization_name}"
             org_dict = {
                 "organization_name": org_data.organization_name,
-                "email": org_data.email
+                "email": org_data.email,
+                "connection_details": connection_details
             }
             created_org = self.org_repo.create(org_dict)
             
@@ -85,6 +88,7 @@ class OrganizationService:
                 id=str(created_org['id']),
                 organization_name=str(created_org['organization_name']),
                 email=str(created_org['email']),
+                connection_details=created_org.get('connection_details'),
                 created_at=created_org['created_at'],
                 updated_at=created_org.get('updated_at')
             )
@@ -165,6 +169,8 @@ class OrganizationService:
                     detail=f"Organization name '{new_name}' is already taken"
                 )
             fields_to_update['organization_name'] = new_name
+            # Update connection details for new collection name
+            fields_to_update['connection_details'] = f"Collection: org_{new_name}"
             rename_collection = True
             
         # Update Organization Metadata
@@ -199,6 +205,7 @@ class OrganizationService:
             id=str(updated_org['id']),
             organization_name=str(updated_org['organization_name']),
             email=str(updated_org['email']),
+            connection_details=updated_org.get('connection_details'),
             created_at=updated_org['created_at'],
             updated_at=updated_org.get('updated_at')
         )

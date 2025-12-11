@@ -37,7 +37,7 @@ async def create_organization(
     return service.create_organization(org_data)
 
 
-@router.get("/get/{organization_name}", response_model=OrganizationResponse)
+@router.get("/get", response_model=OrganizationResponse)
 async def get_organization(
     organization_name: str,
     service: OrganizationService = Depends(get_organization_service)
@@ -45,7 +45,7 @@ async def get_organization(
     """
     Get organization details by name.
     
-    - Input: organization_name (path parameter)
+    - Input: organization_name (query parameter)
     - Returns: Organization metadata
     """
     return service.get_organization(organization_name)

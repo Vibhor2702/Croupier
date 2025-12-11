@@ -174,7 +174,7 @@ FastAPI provides automatic interactive documentation:
 ### Key Endpoints
 
 - **POST /org/create**: Create a new organization with admin user
-- **GET /org/get/{organization_name}**: Retrieve organization details by name
+- **GET /org/get**: Retrieve organization details by name (query parameter)
 - **PUT /org/update**: Update organization details (Auth required)
 - **DELETE /org/delete**: Delete authenticated admin's organization (Auth required)
 - **POST /admin/login**: Admin login to get JWT token
@@ -198,7 +198,7 @@ curl -X 'POST' \
 
 ```bash
 curl -X 'GET' \
-  'http://localhost:8000/org/get/acme_corp'
+  'http://localhost:8000/org/get?organization_name=acme_corp'
 ```
 
 ### 3. Login as Admin
