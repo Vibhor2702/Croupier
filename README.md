@@ -1,10 +1,28 @@
 # Croupier
+**Backend Intern Assignment - The Wedding Company**
 
-A Multi-Tenant Organization Management Service built with FastAPI and MongoDB.
+---
 
-## Project Description
+**Author:** Vibhor Srivastava  
+**Institution:** SRM Institute of Science and Technology, NCR Campus  
+**Submission Date:** December 13, 2025
 
-Croupier is a backend service designed to manage organizations in a multi-tenant architecture. It supports organization creation, updates, deletion, admin management, and authentication. The system uses a master database for global metadata and dynamic collections for each organization to ensure data isolation.
+---
+
+## About the Project Name
+
+**Croupier** (French: /kʁupje/, meaning "dealer") - In casinos, a croupier manages and distributes resources at gaming tables. Similarly, this service acts as the central dealer for managing and distributing organizational resources across multiple tenants, ensuring fair isolation and proper resource allocation in a multi-tenant architecture.
+
+## Executive Summary
+
+Croupier is an enterprise-grade, multi-tenant organization management service designed to demonstrate modern backend development practices. Built with FastAPI and MongoDB, it provides a scalable solution for managing organizations with complete data isolation, robust authentication, and dynamic resource provisioning.
+
+**Key Capabilities:**
+- RESTful API for organization lifecycle management (CRUD operations)
+- JWT-based authentication with bcrypt password security
+- Dynamic MongoDB collection creation per tenant
+- Master database for global metadata with isolated tenant databases
+- Production-ready architecture with layered design pattern
 
 ## High-Level Architecture Diagram
 
@@ -64,17 +82,25 @@ graph TB
     style H fill:#fff9c4,stroke:#f57f17,stroke-width:2px
 ```
 
-**Key Architecture Principles:**
-- **Layered Design:** Clear separation of concerns (API → Service → Repository → Database)
-- **Multi-Tenancy:** Each organization gets isolated MongoDB collection (`org_<name>`)
-- **Security:** JWT authentication + bcrypt password hashing (12 rounds)
-- **Scalability:** Stateless API design with dynamic collection creation
+**Architecture Principles:**
+- **Layered Design:** Clear separation of concerns (Router → Service → Repository → Database)
+- **Multi-Tenancy:** Isolated MongoDB collections per organization (`org_<name>`)
+- **Security-First:** JWT authentication with bcrypt password hashing (12 rounds)
+- **Scalability:** Stateless design enabling horizontal scaling
 
-## Architecture Documentation
+## 📖 Detailed Architecture Analysis
 
-📐 **Detailed architecture documentation available in:**
-- **`Croupier_Architecture.ipynb`** - Interactive notebook with architecture layers, design decisions, code examples, and scalability analysis
-- **Answers to architectural questions** about scalability, trade-offs, and alternative designs
+> **Important:** The architectural questions from the assignment (scalability limitations, technology trade-offs, alternative database patterns) are comprehensively answered in the accompanying Jupyter notebook.
+
+For in-depth technical documentation including:
+- **Design rationale and architectural decisions**
+- **Scalability analysis and limitations**
+- **Technology stack trade-offs**
+- **Alternative multi-tenancy patterns comparison**
+- **Production readiness considerations**
+- **Code examples and implementation details**
+
+**Please refer to:** [`Croupier_Architecture.ipynb`](Croupier_Architecture.ipynb)
 
 ## Tech Stack
 
