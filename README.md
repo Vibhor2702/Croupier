@@ -212,6 +212,39 @@ uvicorn main:app --reload
 
 The server will start at `http://localhost:8000`.
 
+## Running Tests
+
+The project includes a comprehensive test suite covering all endpoints and authentication flows.
+
+**Install test dependencies** (if not already installed):
+```bash
+pip install -r requirements.txt
+```
+
+**Run all tests:**
+```bash
+pytest
+```
+
+**Run with verbose output:**
+```bash
+pytest -v
+```
+
+**Run specific test file:**
+```bash
+pytest tests/test_organization.py
+```
+
+**Test Coverage:**
+- ✅ Organization CRUD operations
+- ✅ Admin authentication and JWT tokens
+- ✅ Protected endpoint authorization
+- ✅ Health check endpoint
+- ✅ Input validation and error handling
+
+See [`tests/README.md`](tests/README.md) for detailed testing documentation.
+
 ## API Documentation
 
 FastAPI provides automatic interactive documentation:
