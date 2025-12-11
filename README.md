@@ -176,6 +176,34 @@ For in-depth technical documentation including:
 
 ## How to Run the Server
 
+### Option 1: Using Docker (Recommended - One Command Setup)
+
+The easiest way to run the entire application with MongoDB:
+
+```bash
+docker-compose up --build
+```
+
+This will:
+- Build the FastAPI application container
+- Pull and start MongoDB container
+- Set up networking between services
+- Expose API on `http://localhost:8000`
+
+**Health Check:** Visit `http://localhost:8000/health` to verify the service is running.
+
+To stop the services:
+```bash
+docker-compose down
+```
+
+To stop and remove volumes (clean database):
+```bash
+docker-compose down -v
+```
+
+### Option 2: Local Development
+
 Start the application using Uvicorn:
 
 ```bash

@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # FastAPI Application
+  api:
+    build: .
+    container_name: croupier-api
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGODB_URL=mongodb://mongo:27017
+      - MONGODB_DB_NAME=croupier_master
+      - JWT_SECRET_KEY=your-super-secret-key-change-this-in-production
+      - JWT_ALGORITHM=HS256
+      - JWT_ACCESS_TOKEN_EXPIRE_MINUTES=60
+      - DEBUG=True
+    depends_on:
+      - mongo
+    networks:
+      - croupier-network
+    restart: unless-stopped
+
+  # MongoDB Database
+  mongo:
+    image: mongo:7
+    container_name: croupier-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - croupier-network
+    restart: unless-stopped
+
+networks:
+  croupier-network:
+    driver: bridge
+
+volumes:
+  mongo_data:
+    driver: local

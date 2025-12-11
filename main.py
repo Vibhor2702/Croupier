@@ -48,6 +48,31 @@ async def root():
         "redoc": "/redoc"
     }
 
+@app.get("/health", tags=["Health"])
+async def health_check():
+    """
+    Health check endpoint for monitoring and load balancers.
+    
+    Returns service status and database connectivity.
+    """
+    db_status = "disconnected"
+    try:
+        # Check database connection
+        if db_manager._client is not None:
+            db_manager._client.server_info()
+            db_status = "connected"
+    except Exception:
+        db_status = "disconnected"
+    
+    health_status = "healthy" if db_status == "connected" else "unhealthy"
+    
+    return {
+        "status": health_status,
+        "service": settings.APP_NAME,
+        "version": settings.APP_VERSION,
+        "database": db_status
+    }
+
 if __name__ == "__main__":
     uvicorn.run(
         "main:app", 
