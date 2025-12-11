@@ -223,23 +223,15 @@ pip install -r requirements.txt
 
 **Run all tests:**
 ```bash
-# Windows PowerShell
-$env:PYTHONPATH="$(Get-Location)"; pytest -v
-
-# Linux/Mac
-PYTHONPATH=. pytest -v
+pytest
 ```
 
 **Run specific test file:**
 ```bash
-# Windows PowerShell
-$env:PYTHONPATH="$(Get-Location)"; pytest tests/test_organization.py -v
-
-# Linux/Mac
-PYTHONPATH=. pytest tests/test_organization.py -v
+pytest tests/test_organization.py
 ```
 
-**Expected Result:** ✅ All 20 tests pass
+**Expected Result:** ✅ All 20 tests pass consistently
 
 **Test Coverage:**
 - ✅ Organization CRUD operations
