@@ -16,15 +16,15 @@ async def lifespan(app: FastAPI):
     # Startup
     try:
         db_manager.connect()
-        print(f"✓ Successfully connected to MongoDB")
+        print("[SUCCESS] Connected to MongoDB")
     except Exception as e:
-        print(f"✗ Failed to connect to MongoDB: {str(e)}")
-        print(f"✗ Please ensure MongoDB is running and MONGODB_URI is correct")
+        print(f"[ERROR] Failed to connect to MongoDB: {str(e)}")
+        print("[ERROR] Please ensure MongoDB is running and MONGODB_URI is correct")
         raise
     yield
     # Shutdown
     db_manager.disconnect()
-    print(f"✓ Disconnected from MongoDB")
+    print("[INFO] Disconnected from MongoDB")
 
 
 app = FastAPI(
