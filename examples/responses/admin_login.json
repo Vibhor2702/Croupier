@@ -1,0 +1,4 @@
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjUwN2YxZjc3YmNmODZjZDc5OTQzOTAxMiIsIm9yZ2FuaXphdGlvbl9pZCI6IjUwN2YxZjc3YmNmODZjZDc5OTQzOTAxMSIsIm9yZ2FuaXphdGlvbl9uYW1lIjoiYWNtZV9jb3JwIiwiZXhwIjoxNzM0MDkzMDAwLCJpYXQiOjE3MzQwODk0MDB9.example_signature_here",
+  "token_type": "bearer"
+}

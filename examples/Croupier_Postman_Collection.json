@@ -1,0 +1,297 @@
+{
+  "info": {
+    "name": "Croupier - Multi-Tenant Organization Management",
+    "description": "Complete API collection for testing all Croupier endpoints. Includes environment variables for easy testing.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "croupier-api-v1"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "org_name",
+      "value": "demo_organization",
+      "type": "string"
+    },
+    {
+      "key": "admin_email",
+      "value": "admin@demo.com",
+      "type": "string"
+    },
+    {
+      "key": "admin_password",
+      "value": "SecurePass123",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Create Organization",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "pm.test(\"Response has organization_name\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.organization_name).to.eql(pm.variables.get(\"org_name\"));",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"organization_name\": \"{{org_name}}\",\n  \"email\": \"{{admin_email}}\",\n  \"password\": \"{{admin_password}}\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/org/create",
+          "host": ["{{base_url}}"],
+          "path": ["org", "create"]
+        },
+        "description": "Creates a new organization with admin user and dynamic collection."
+      },
+      "response": []
+    },
+    {
+      "name": "2. Admin Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response has access_token\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.access_token).to.exist;",
+              "    pm.variables.set(\"jwt_token\", jsonData.access_token);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{admin_email}}\",\n  \"password\": \"{{admin_password}}\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/admin/login",
+          "host": ["{{base_url}}"],
+          "path": ["admin", "login"]
+        },
+        "description": "Authenticates admin and returns JWT token. Token is automatically saved to {{jwt_token}} variable."
+      },
+      "response": []
+    },
+    {
+      "name": "3. Get Organization",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response contains organization details\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.organization_name).to.exist;",
+              "    pm.expect(jsonData.email).to.exist;",
+              "    pm.expect(jsonData.connection_details).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/org/get?organization_name={{org_name}}",
+          "host": ["{{base_url}}"],
+          "path": ["org", "get"],
+          "query": [
+            {
+              "key": "organization_name",
+              "value": "{{org_name}}"
+            }
+          ]
+        },
+        "description": "Retrieves organization metadata by name. No authentication required."
+      },
+      "response": []
+    },
+    {
+      "name": "4. Update Organization",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Organization details updated\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.organization_name).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwt_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"organization_name\": \"demo_organization_updated\",\n  \"email\": \"newemail@demo.com\",\n  \"password\": \"NewSecurePass456\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/org/update",
+          "host": ["{{base_url}}"],
+          "path": ["org", "update"]
+        },
+        "description": "Updates organization details. Requires JWT authentication. If organization name changes, performs collection migration."
+      },
+      "response": []
+    },
+    {
+      "name": "5. Delete Organization",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 204\", function () {",
+              "    pm.response.to.have.status(204);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwt_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/org/delete",
+          "host": ["{{base_url}}"],
+          "path": ["org", "delete"]
+        },
+        "description": "Deletes the authenticated admin's organization, including metadata, admin user, and dynamic collection. Requires JWT authentication."
+      },
+      "response": []
+    },
+    {
+      "name": "Health Check",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Service is healthy\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.status).to.eql(\"healthy\");",
+              "    pm.expect(jsonData.database).to.eql(\"connected\");",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        },
+        "description": "Health check endpoint for monitoring and load balancers."
+      },
+      "response": []
+    }
+  ]
+}

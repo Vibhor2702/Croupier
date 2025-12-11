@@ -1,0 +1,7 @@
+{
+  "note": "DELETE /org/delete returns HTTP 204 No Content",
+  "description": "Successful deletion returns an empty response body with status code 204.",
+  "headers": {
+    "Content-Length": "0"
+  }
+}
