@@ -88,7 +88,7 @@ graph TB
 - **Security-First:** JWT authentication with bcrypt password hashing (12 rounds)
 - **Scalability:** Stateless design enabling horizontal scaling
 
-## 📖 Detailed Architecture Analysis
+## Detailed Architecture Analysis
 
 > **Important:** The architectural questions from the assignment (scalability limitations, technology trade-offs, alternative database patterns) are comprehensively answered in the accompanying Jupyter notebook.
 
