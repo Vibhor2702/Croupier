@@ -14,10 +14,17 @@ from app.routers import organization, admin
 async def lifespan(app: FastAPI):
     """Lifespan context manager for startup and shutdown events."""
     # Startup
-    db_manager.connect()
+    try:
+        db_manager.connect()
+        print(f"✓ Successfully connected to MongoDB")
+    except Exception as e:
+        print(f"✗ Failed to connect to MongoDB: {str(e)}")
+        print(f"✗ Please ensure MongoDB is running and MONGODB_URI is correct")
+        raise
     yield
     # Shutdown
     db_manager.disconnect()
+    print(f"✓ Disconnected from MongoDB")
 
 
 app = FastAPI(

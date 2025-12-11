@@ -6,7 +6,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from typing import Dict, Any
 from app.security.jwt_handler import jwt_handler
 
-security = HTTPBearer()
+security = HTTPBearer(auto_error=False)
 
 
 async def get_current_admin(
@@ -24,6 +24,13 @@ async def get_current_admin(
     Raises:
         HTTPException: If token is invalid or expired
     """
+    if credentials is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Not authenticated",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
     token = credentials.credentials
     payload = jwt_handler.verify_token(token)
     

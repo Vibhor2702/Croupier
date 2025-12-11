@@ -9,33 +9,40 @@ class TestOrganizationCreate:
     
     def test_create_organization_success(self, client):
         """Test successful organization creation."""
+        import random
+        import string
+        random_suffix = ''.join(random.choices(string.ascii_lowercase + string.digits, k=6))
         response = client.post("/org/create", json={
-            "organization_name": "acme_corp",
-            "email": "admin@acme.com",
+            "organization_name": f"acme_corp_{random_suffix}",
+            "email": f"admin_{random_suffix}@acme.com",
             "password": "SecurePass123"
         })
         
         assert response.status_code == status.HTTP_201_CREATED
         data = response.json()
-        assert data["organization_name"] == "acme_corp"
-        assert data["email"] == "admin@acme.com"
+        assert data["organization_name"] == f"acme_corp_{random_suffix}"
+        assert data["email"] == f"admin_{random_suffix}@acme.com"
         assert "connection_details" in data
         assert "id" in data
         assert "created_at" in data
     
     def test_create_organization_duplicate_name(self, client):
         """Test creating organization with duplicate name fails."""
+        import random
+        import string
+        random_suffix = ''.join(random.choices(string.ascii_lowercase + string.digits, k=6))
         # Create first organization
+        org_name = f"duplicate_test_{random_suffix}"
         client.post("/org/create", json={
-            "organization_name": "duplicate_test",
-            "email": "first@example.com",
+            "organization_name": org_name,
+            "email": f"first_{random_suffix}@example.com",
             "password": "Password123"
         })
         
-        # Try to create with same name
+        # Try to create with same name but different email
         response = client.post("/org/create", json={
-            "organization_name": "duplicate_test",
-            "email": "second@example.com",
+            "organization_name": org_name,
+            "email": f"second_{random_suffix}@example.com",
             "password": "Password123"
         })
         
@@ -44,9 +51,12 @@ class TestOrganizationCreate:
     
     def test_create_organization_invalid_password(self, client):
         """Test creating organization with weak password fails."""
+        import random
+        import string
+        random_suffix = ''.join(random.choices(string.ascii_lowercase + string.digits, k=6))
         response = client.post("/org/create", json={
-            "organization_name": "weak_pass_org",
-            "email": "weak@example.com",
+            "organization_name": f"weak_pass_org_{random_suffix}",
+            "email": f"weak_{random_suffix}@example.com",
             "password": "weak"  # Too short, no uppercase, no digit
         })
         
@@ -58,11 +68,14 @@ class TestOrganizationGet:
     
     def test_get_organization_success(self, client):
         """Test successful organization retrieval."""
+        import random
+        import string
+        random_suffix = ''.join(random.choices(string.ascii_lowercase + string.digits, k=6))
         # Create organization first
-        org_name = "get_test_org"
+        org_name = f"get_test_org_{random_suffix}"
         client.post("/org/create", json={
             "organization_name": org_name,
-            "email": "get@example.com",
+            "email": f"get_{random_suffix}@example.com",
             "password": "GetPass123"
         })
         
@@ -72,7 +85,7 @@ class TestOrganizationGet:
         assert response.status_code == status.HTTP_200_OK
         data = response.json()
         assert data["organization_name"] == org_name
-        assert data["email"] == "get@example.com"
+        assert data["email"] == f"get_{random_suffix}@example.com"
     
     def test_get_organization_not_found(self, client):
         """Test getting non-existent organization returns 404."""
