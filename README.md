@@ -88,7 +88,7 @@ graph TB
 - **Security-First:** bcrypt password hashing (12 rounds) + bearer token validation
 
 **Architecture Documentation:**  
-For comprehensive design analysis including scalability considerations, technology trade-offs, alternative patterns, and implementation details, see [`Architecture_and_Design.pdf`](Architecture_and_Design.pdf)
+For comprehensive design analysis including scalability considerations, technology trade-offs, alternative patterns, and implementation details, see [`Architecture and Design.pdf`](Architecture%20and%20Design.pdf)
 
 ---
 
@@ -334,7 +334,7 @@ I chose a **local-first approach** for this project to prioritize reproducibilit
 
 ## Files of Interest
 
-- **[Architecture_and_Design.pdf](Architecture_and_Design.pdf)** – Technical design document with architecture analysis, scalability considerations, and trade-offs
+- **[Architecture and Design.pdf](Architecture%20and%20Design.pdf)** – Technical design document with architecture analysis, scalability considerations, and trade-offs
 - **[examples/Croupier_Postman_Collection.json](examples/Croupier_Postman_Collection.json)** – Import-ready API collection
 - **[examples/responses/](examples/responses/)** – Example JSON responses for all endpoints
 - **[tests/](tests/)** – Comprehensive pytest suite (20 tests, see [tests/README.md](tests/README.md))
