@@ -273,20 +273,21 @@ See [`tests/README.md`](tests/README.md) for detailed documentation.
 
 ## Local-First Design Rationale
 
-This project prioritizes **local reproducibility over cloud deployment** for three key reasons:
+I chose a **local-first approach** for this project to prioritize reproducibility and eliminate hosting variability. Running everything locally via Docker ensures that the system behaves identically across different machines and environments, which simplifies evaluation and testing.
 
-1. **Deterministic Evaluation Environment**  
-   Every reviewer runs identical infrastructure (Docker + MongoDB) eliminating environment-specific issues and ensuring consistent behavior validation.
+**Why local-first:**
 
-2. **Assignment Scope Alignment**  
-   Backend intern assessment focuses on code architecture, API design, and data modeling—not DevOps or cloud infrastructure management.
+- **Reproducibility:** Docker Compose provides a consistent runtime environment. No dependency on external services means no unexpected downtime, rate limits, or environment drift.
 
-3. **Cost-Free Demo Capability**  
-   Docker Compose + automated tests + smoke scripts provide complete functional demonstration without ongoing hosting expenses or credential sharing.
+- **Complete Validation:** The included test suite (20 tests) and smoke test script enable full functional verification without requiring internet connectivity or cloud credentials.
 
-**Production-Ready Infrastructure:** Despite local-first design, this project includes Docker support, health checks, and environment configuration for seamless deployment to Railway, Azure App Service, AWS ECS, or any container platform.
+- **Simplicity:** Avoid the overhead of managing hosted infrastructure, dealing with cold starts, or troubleshooting platform-specific issues.
 
-**Optional Public Access:** For remote demos, use [ngrok](https://ngrok.com/) to create temporary tunnels: `ngrok http 8000`
+- **Cost and Access:** Zero ongoing hosting expenses and no need to share database credentials or API keys.
+
+**Production-ready design:** This project includes Docker support, health checks, and environment configuration, making it straightforward to deploy to Railway, Azure App Service, AWS ECS, or any container platform if needed.
+
+**Remote demos:** If you need external access for testing, you can use [ngrok](https://ngrok.com/) to expose the local server: `ngrok http 8000`
 
 ---
 
