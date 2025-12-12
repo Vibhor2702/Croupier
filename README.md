@@ -7,12 +7,12 @@
 
 ## Overview
 
-**Croupier** (French: /kʁupje/, meaning "dealer") – In casinos, a croupier manages and distributes resources at gaming tables. Similarly, this service acts as the central dealer for managing and distributing organizational resources across multiple tenants, ensuring fair isolation and proper resource allocation in a multi-tenant architecture.
+**Croupier** (French: /kʁupje/, meaning "dealer") manages and distributes resources across multiple tenants, ensuring proper isolation and resource allocation in a multi-tenant architecture.
 
-**Croupier** is a production-ready multi-tenant organization management API built with FastAPI and MongoDB. It demonstrates enterprise backend patterns including JWT authentication, per-tenant data isolation via dynamic collections, and layered architecture for maintainability and scalability.
+This is a production-ready multi-tenant organization management API built with FastAPI and MongoDB. It demonstrates enterprise backend patterns including JWT authentication, per-tenant data isolation via dynamic collections, and layered architecture for maintainability and scalability.
 
-**Local-First Execution Rationale:**  
-Croupier is intentionally designed for local evaluation to guarantee reproducibility, eliminate hosting dependencies, and align with assignment expectations. Full functionality, including automated testing and smoke tests, runs reliably without cloud services. This approach ensures evaluators can validate all requirements in a deterministic environment.
+**Local-First Design:**  
+Designed for local evaluation to ensure reproducibility and eliminate hosting dependencies. Full functionality, including automated testing and smoke tests, runs reliably without cloud services.
 
 **Core Capabilities:**
 - Organization lifecycle management (create, read, update, delete)
@@ -87,8 +87,8 @@ graph TB
 - **Stateless Authentication:** JWT tokens enable horizontal scaling without session storage
 - **Security-First:** bcrypt password hashing (12 rounds) + bearer token validation
 
-**In-Depth Analysis:**  
-For comprehensive architectural documentation including scalability limitations, technology trade-offs, and alternative patterns, see [`Croupier_Architecture.ipynb`](Croupier_Architecture.ipynb)
+**Architecture Documentation:**  
+For comprehensive design analysis including scalability considerations, technology trade-offs, alternative patterns, and implementation details, see [`Architecture_and_Design.pdf`](Architecture_and_Design.pdf)
 
 ---
 
@@ -333,7 +333,7 @@ This project prioritizes **local reproducibility over cloud deployment** for thr
 
 ## Files of Interest
 
-- **[Croupier_Architecture.ipynb](Croupier_Architecture.ipynb)** – Comprehensive architecture analysis and design decisions
+- **[Architecture_and_Design.pdf](Architecture_and_Design.pdf)** – Technical design document with architecture analysis, scalability considerations, and trade-offs
 - **[examples/Croupier_Postman_Collection.json](examples/Croupier_Postman_Collection.json)** – Import-ready API collection
 - **[examples/responses/](examples/responses/)** – Example JSON responses for all endpoints
 - **[tests/](tests/)** – Comprehensive pytest suite (20 tests, see [tests/README.md](tests/README.md))
